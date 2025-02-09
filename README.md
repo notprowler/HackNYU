@@ -50,3 +50,4 @@ export default tseslint.config({
 ```
 
 # template-react-vite-tailwind
+# HackNYU
