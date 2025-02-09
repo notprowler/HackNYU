@@ -8,10 +8,14 @@ const ClusterFeature = lazy(() => import('../components/cluster/cluster-feature'
 const HACKNYUFeature = lazy(() => import('../components/HACKNYU/HACKNYU-feature'))
 const DashboardFeature = lazy(() => import('../components/dashboard/dashboard-feature'))
 
+const Login = lazy(() => import('../components/login/Login'))
+
+const Signup = lazy(() => import('../components/signup/Signup'))
+
 const links: { label: string; path: string }[] = [
-  { label: 'Account', path: '/account' },
-  { label: 'Clusters', path: '/clusters' },
-  { label: 'HACKNYU Program', path: '/HACKNYU' },
+  // { label: 'Account', path: '/account' },
+  // { label: 'Clusters', path: '/clusters' },
+  // { label: 'HACKNYU Program', path: '/HACKNYU' },
 ]
 
 const routes: RouteObject[] = [
@@ -19,6 +23,8 @@ const routes: RouteObject[] = [
   { path: '/account/:address', element: <AccountDetailFeature /> },
   { path: '/HACKNYU', element: <HACKNYUFeature /> },
   { path: '/clusters', element: <ClusterFeature /> },
+  { path: '/login', element: <Login /> },
+  { path: '/signup', element: <Signup /> },
 ]
 
 export function AppRoutes() {
