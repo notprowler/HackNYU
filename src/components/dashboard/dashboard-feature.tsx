@@ -1,6 +1,8 @@
 import { AppHero } from '../ui/ui-layout'
 import { useNavigate } from 'react-router'
 
+import { useEffect } from 'react'
+
 // const links: { label: string; href: string }[] = [
 //   { label: 'Solana Docs', href: 'https://docs.solana.com/' },
 //   { label: 'Solana Faucet', href: 'https://faucet.solana.com/' },
@@ -11,6 +13,13 @@ import { useNavigate } from 'react-router'
 
 export default function DashboardFeature() {
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const user = localStorage.getItem('user_data')
+    if (user) {
+      navigate('/company-dashboard')
+    }
+  }, [])
 
   return (
     <div>

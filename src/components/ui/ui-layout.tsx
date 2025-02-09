@@ -6,8 +6,19 @@ import { AccountChecker } from '../account/account-ui'
 import { ClusterChecker, ClusterUiSelect, ExplorerLink } from '../cluster/cluster-ui'
 import { WalletButton } from '../solana/solana-provider'
 
+import { useNavigate } from 'react-router-dom'
+
 export function UiLayout({ children, links }: { children: ReactNode; links: { label: string; path: string }[] }) {
   const pathname = useLocation().pathname
+
+  const showLogin = localStorage.getItem('user_data') == null // Show login if user is not logged in
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    localStorage.removeItem('user_data')
+
+    navigate('/')
+  }
 
   return (
     <div className="h-full flex flex-col">
@@ -27,12 +38,20 @@ export function UiLayout({ children, links }: { children: ReactNode; links: { la
           </ul>
         </div>
         <div className="flex-none space-x-2">
-          <Link to="/signup">
-            <button className="btn btn-ghost">Signup</button>
-          </Link>
-          <Link to="/login">
-            <button className="btn btn-ghost">Login</button>
-          </Link>
+          {showLogin ? (
+            <>
+              <Link to="/signup">
+                <button className="btn btn-ghost">Signup</button>
+              </Link>
+              <Link to="/login">
+                <button className="btn btn-ghost">Login</button>
+              </Link>
+            </>
+          ) : (
+            <button onClick={handleLogout} className="btn btn-ghost">
+              logout
+            </button>
+          )}
         </div>
       </div>
       <ClusterChecker>

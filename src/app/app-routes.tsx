@@ -13,6 +13,8 @@ const Signup = lazy(() => import('../components/signup/Signup'))
 
 const Customer = lazy(() => import('../components/customer/customer'))
 
+const CompanyDashboard = lazy(() => import('../components/companyDashboard/companyDashboard'))
+
 const links: { label: string; path: string }[] = [
   // { label: 'Account', path: '/account' },
   // { label: 'Clusters', path: '/clusters' },
@@ -26,6 +28,7 @@ const routes: RouteObject[] = [
   { path: '/login', element: <Login /> },
   { path: '/signup', element: <Signup /> },
   { path: '/customer', element: <Customer /> },
+  { path: '/company-dashboard', element: <CompanyDashboard /> },
 ]
 
 export function AppRoutes() {

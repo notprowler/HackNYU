@@ -1,29 +1,48 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 
 import { Link } from 'react-router-dom'
 
+import { signInUser } from '@/utils/supabase/functions'
+
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
 
   const navigate = useNavigate()
 
-  const handleLogin = async () => {
+  useEffect(() => {
+    const user = localStorage.getItem('user_data')
+    if (user) {
+      navigate('/company-dashboard')
+    }
+  }, [])
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     if (!email || !password) {
       console.log('Please fill in all fields')
     }
 
-    navigate('/company-dashboard')
+    const data = await signInUser(email, password)
+    console.log('data', data)
 
-    console.log('email', email)
+    if (!data) {
+      console.log('Error signing up')
+      setError('Error signing up')
+      return
+    }
+
+    localStorage.setItem('user_data', JSON.stringify(data))
+    navigate('/company-dashboard')
   }
 
   return (
     <div className="flex flex-col items-center justify-center h-full">
       <div className=" p-6 rounded-lg shadow-lg w-80">
         <h1 className="text-2xl font-semibold text-center mb-4">Login</h1>
-        <form className="space-y-3 flex flex-col w-full">
+        <form onSubmit={handleLogin} className="space-y-3 flex flex-col w-full">
           <input
             type="email"
             placeholder="Email"
@@ -41,7 +60,6 @@ export default function Login() {
           <button
             type="submit"
             className="w-full text-white py-2 rounded-md border-b-2 border-white  hover:bg-gray-400 hover:transition-transform  transition"
-            onClick={handleLogin}
           >
             Login
           </button>
@@ -56,6 +74,8 @@ export default function Login() {
             </Link>
           </p>
         </div>
+
+        {error && <p className="text-red-500 mt-4">{error}</p>}
       </div>
     </div>
   )
