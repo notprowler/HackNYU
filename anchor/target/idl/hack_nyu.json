@@ -1,7 +1,7 @@
 {
-  "address": "FNFwJ7y8JwbeMCRbR4gSrFi7FBsYJsKvDk4WUE8SxGEx",
+  "address": "coUnmi3oBUtwtd9fjeAvSsJssXh5A5xyPbhpewyzRVF",
   "metadata": {
-    "name": "HACKNYU",
+    "name": "hack_nyu",
     "version": "0.1.0",
     "spec": "0.1.0",
     "description": "Created with Anchor"
@@ -26,7 +26,7 @@
           "signer": true
         },
         {
-          "name": "HACKNYU",
+          "name": "counter",
           "writable": true
         }
       ],
@@ -46,7 +46,7 @@
       ],
       "accounts": [
         {
-          "name": "HACKNYU",
+          "name": "counter",
           "writable": true
         }
       ],
@@ -66,7 +66,7 @@
       ],
       "accounts": [
         {
-          "name": "HACKNYU",
+          "name": "counter",
           "writable": true
         }
       ],
@@ -91,7 +91,7 @@
           "signer": true
         },
         {
-          "name": "HACKNYU",
+          "name": "counter",
           "writable": true,
           "signer": true
         },
@@ -116,7 +116,7 @@
       ],
       "accounts": [
         {
-          "name": "HACKNYU",
+          "name": "counter",
           "writable": true
         }
       ],
@@ -130,7 +130,7 @@
   ],
   "accounts": [
     {
-      "name": "HACKNYU",
+      "name": "Counter",
       "discriminator": [
         255,
         176,
@@ -145,7 +145,7 @@
   ],
   "types": [
     {
-      "name": "HACKNYU",
+      "name": "Counter",
       "type": {
         "kind": "struct",
         "fields": [

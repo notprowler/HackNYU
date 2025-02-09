@@ -5,66 +5,68 @@ use anchor_lang::prelude::*;
 declare_id!("coUnmi3oBUtwtd9fjeAvSsJssXh5A5xyPbhpewyzRVF");
 
 #[program]
-pub mod HACKNYU {
+pub mod hack_nyu {
     use super::*;
 
-  pub fn close(_ctx: Context<CloseHACKNYU>) -> Result<()> {
-    Ok(())
-  }
+    pub fn close(_ctx: Context<CloseCounter>) -> Result<()> {
+        Ok(())
+    }
 
-  pub fn decrement(ctx: Context<Update>) -> Result<()> {
-    ctx.accounts.HACKNYU.count = ctx.accounts.HACKNYU.count.checked_sub(1).unwrap();
-    Ok(())
-  }
+    pub fn decrement(ctx: Context<Update>) -> Result<()> {
+        ctx.accounts.counter.count = ctx.accounts.counter.count.checked_sub(1).unwrap();
+        Ok(())
+    }
 
-  pub fn increment(ctx: Context<Update>) -> Result<()> {
-    ctx.accounts.HACKNYU.count = ctx.accounts.HACKNYU.count.checked_add(1).unwrap();
-    Ok(())
-  }
+    pub fn increment(ctx: Context<Update>) -> Result<()> {
+        ctx.accounts.counter.count = ctx.accounts.counter.count.checked_add(1).unwrap();
+        Ok(())
+    }
 
-  pub fn initialize(_ctx: Context<InitializeHACKNYU>) -> Result<()> {
-    Ok(())
-  }
+    pub fn initialize(ctx: Context<InitializeCounter>) -> Result<()> {
+        ctx.accounts.counter.count = 0; // Initialize count to 0
+        Ok(())
+    }
 
-  pub fn set(ctx: Context<Update>, value: u8) -> Result<()> {
-    ctx.accounts.HACKNYU.count = value.clone();
-    Ok(())
-  }
+    pub fn set(ctx: Context<Update>, value: u8) -> Result<()> {
+        ctx.accounts.counter.count = value;
+        Ok(())
+    }
 }
 
 #[derive(Accounts)]
-pub struct InitializeHACKNYU<'info> {
-  #[account(mut)]
-  pub payer: Signer<'info>,
+pub struct InitializeCounter<'info> {
+    #[account(mut)]
+    pub payer: Signer<'info>,
 
-  #[account(
-  init,
-  space = 8 + HACKNYU::INIT_SPACE,
-  payer = payer
-  )]
-  pub HACKNYU: Account<'info, HACKNYU>,
-  pub system_program: Program<'info, System>,
+    #[account(
+        init,
+        space = 8 + Counter::INIT_SPACE,
+        payer = payer
+    )]
+    pub counter: Account<'info, Counter>,
+    pub system_program: Program<'info, System>,
 }
-#[derive(Accounts)]
-pub struct CloseHACKNYU<'info> {
-  #[account(mut)]
-  pub payer: Signer<'info>,
 
-  #[account(
-  mut,
-  close = payer, // close account and return lamports to payer
-  )]
-  pub HACKNYU: Account<'info, HACKNYU>,
+#[derive(Accounts)]
+pub struct CloseCounter<'info> {
+    #[account(mut)]
+    pub payer: Signer<'info>,
+
+    #[account(
+        mut,
+        close = payer,
+    )]
+    pub counter: Account<'info, Counter>,
 }
 
 #[derive(Accounts)]
 pub struct Update<'info> {
-  #[account(mut)]
-  pub HACKNYU: Account<'info, HACKNYU>,
+    #[account(mut)]
+    pub counter: Account<'info, Counter>,
 }
 
 #[account]
 #[derive(InitSpace)]
-pub struct HACKNYU {
-  count: u8,
+pub struct Counter {
+    count: u8,
 }

@@ -1,7 +1,13 @@
-{
-  "address": "FNFwJ7y8JwbeMCRbR4gSrFi7FBsYJsKvDk4WUE8SxGEx",
+/**
+ * Program IDL in camelCase format in order to be used in JS/TS.
+ *
+ * Note that this is only a type helper and is not the actual IDL. The original
+ * IDL can be found at `target/idl/hack_nyu.json`.
+ */
+export type HackNyu = {
+  "address": "coUnmi3oBUtwtd9fjeAvSsJssXh5A5xyPbhpewyzRVF",
   "metadata": {
-    "name": "HACKNYU",
+    "name": "hackNyu",
     "version": "0.1.0",
     "spec": "0.1.0",
     "description": "Created with Anchor"
@@ -26,7 +32,7 @@
           "signer": true
         },
         {
-          "name": "HACKNYU",
+          "name": "counter",
           "writable": true
         }
       ],
@@ -46,7 +52,7 @@
       ],
       "accounts": [
         {
-          "name": "HACKNYU",
+          "name": "counter",
           "writable": true
         }
       ],
@@ -66,7 +72,7 @@
       ],
       "accounts": [
         {
-          "name": "HACKNYU",
+          "name": "counter",
           "writable": true
         }
       ],
@@ -91,12 +97,12 @@
           "signer": true
         },
         {
-          "name": "HACKNYU",
+          "name": "counter",
           "writable": true,
           "signer": true
         },
         {
-          "name": "system_program",
+          "name": "systemProgram",
           "address": "11111111111111111111111111111111"
         }
       ],
@@ -116,7 +122,7 @@
       ],
       "accounts": [
         {
-          "name": "HACKNYU",
+          "name": "counter",
           "writable": true
         }
       ],
@@ -130,7 +136,7 @@
   ],
   "accounts": [
     {
-      "name": "HACKNYU",
+      "name": "counter",
       "discriminator": [
         255,
         176,
@@ -145,7 +151,7 @@
   ],
   "types": [
     {
-      "name": "HACKNYU",
+      "name": "counter",
       "type": {
         "kind": "struct",
         "fields": [
@@ -157,4 +163,4 @@
       }
     }
   ]
-}
+};
