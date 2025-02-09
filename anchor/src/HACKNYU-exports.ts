@@ -21,7 +21,7 @@ export function getHACKNYUProgramId(cluster: Cluster) {
     case 'devnet':
     case 'testnet':
       // This is the program ID for the HACKNYU program on devnet and testnet.
-      return new PublicKey('coUnmi3oBUtwtd9fjeAvSsJssXh5A5xyPbhpewyzRVF')
+      return new PublicKey('A1ypQVsivK192fyxighKTNKXRbbotQY2GxrbDNWkdasK')
     case 'mainnet-beta':
     default:
       return HACKNYU_PROGRAM_ID

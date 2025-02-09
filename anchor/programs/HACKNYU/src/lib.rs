@@ -1,72 +1,40 @@
-#![allow(clippy::result_large_err)]
-
 use anchor_lang::prelude::*;
 
-declare_id!("coUnmi3oBUtwtd9fjeAvSsJssXh5A5xyPbhpewyzRVF");
+// declare_id!("82jvBi1phYa5RMtFHifzXUJ4nKKFetn4VTHuPj7AnhG2");
+declare_id!("A1ypQVsivK192fyxighKTNKXRbbotQY2GxrbDNWkdasK");
 
 #[program]
-pub mod hack_nyu {
+pub mod product_verification {
     use super::*;
 
-    pub fn close(_ctx: Context<CloseCounter>) -> Result<()> {
+    // currently we arent checking if only owner can add a product
+    pub fn add_product(ctx: Context<AddProduct>, product_id: String) -> Result<()> {
+        let product = &mut ctx.accounts.product;
+        product.product_id = product_id;
         Ok(())
     }
 
-    pub fn decrement(ctx: Context<Update>) -> Result<()> {
-        ctx.accounts.counter.count = ctx.accounts.counter.count.checked_sub(1).unwrap();
-        Ok(())
-    }
-
-    pub fn increment(ctx: Context<Update>) -> Result<()> {
-        ctx.accounts.counter.count = ctx.accounts.counter.count.checked_add(1).unwrap();
-        Ok(())
-    }
-
-    pub fn initialize(ctx: Context<InitializeCounter>) -> Result<()> {
-        ctx.accounts.counter.count = 0; // Initialize count to 0
-        Ok(())
-    }
-
-    pub fn set(ctx: Context<Update>, value: u8) -> Result<()> {
-        ctx.accounts.counter.count = value;
-        Ok(())
+    pub fn verify_product(ctx: Context<VerifyProduct>, product_id: String) -> Result<bool> {
+        let product = &ctx.accounts.product;
+        Ok(product.product_id == product_id)
     }
 }
 
 #[derive(Accounts)]
-pub struct InitializeCounter<'info> {
+pub struct AddProduct<'info> {
+    #[account(init, payer = user, space = 64)]
+    pub product: Account<'info, Product>,
     #[account(mut)]
-    pub payer: Signer<'info>,
-
-    #[account(
-        init,
-        space = 8 + Counter::INIT_SPACE,
-        payer = payer
-    )]
-    pub counter: Account<'info, Counter>,
+    pub user: Signer<'info>,
     pub system_program: Program<'info, System>,
 }
 
 #[derive(Accounts)]
-pub struct CloseCounter<'info> {
-    #[account(mut)]
-    pub payer: Signer<'info>,
-
-    #[account(
-        mut,
-        close = payer,
-    )]
-    pub counter: Account<'info, Counter>,
-}
-
-#[derive(Accounts)]
-pub struct Update<'info> {
-    #[account(mut)]
-    pub counter: Account<'info, Counter>,
+pub struct VerifyProduct<'info> {
+    pub product: Account<'info, Product>, 
 }
 
 #[account]
-#[derive(InitSpace)]
-pub struct Counter {
-    count: u8,
+pub struct Product {
+    pub product_id: String,
 }

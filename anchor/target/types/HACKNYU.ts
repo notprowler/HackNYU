@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/HACKNYU.json`.
  */
 export type HACKNYU = {
-  "address": "coUnmi3oBUtwtd9fjeAvSsJssXh5A5xyPbhpewyzRVF",
+  "address": "A1ypQVsivK192fyxighKTNKXRbbotQY2GxrbDNWkdasK",
   "metadata": {
     "name": "HACKNYU",
     "version": "0.1.0",

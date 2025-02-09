@@ -6,7 +6,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-HACKNYU = "coUnmi3oBUtwtd9fjeAvSsJssXh5A5xyPbhpewyzRVF"
+HACKNYU = "A1ypQVsivK192fyxighKTNKXRbbotQY2GxrbDNWkdasK"
 
 [registry]
 url = "https://api.apr.dev"
