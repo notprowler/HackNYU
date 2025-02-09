@@ -1,6 +1,6 @@
 // src/components/ProductForm.tsx
 import React, { useState } from 'react'
-import { useSolanaProgram } from '../solanaUtils'
+import { useSolanaProgram } from '../solanautils/solanautils'
 
 const ProductForm = () => {
   const [productId, setProductId] = useState('')
@@ -18,12 +18,7 @@ const ProductForm = () => {
   return (
     <div>
       <h2>Initialize Product</h2>
-      <input
-        type="text"
-        placeholder="Product ID"
-        value={productId}
-        onChange={(e) => setProductId(e.target.value)}
-      />
+      <input type="text" placeholder="Product ID" value={productId} onChange={(e) => setProductId(e.target.value)} />
       <input
         type="text"
         placeholder="NFC Tag Hash"

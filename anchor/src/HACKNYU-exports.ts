@@ -1,18 +1,18 @@
 // Here we export some useful types and functions for interacting with the Anchor program.
 import { AnchorProvider, Program } from '@coral-xyz/anchor'
 import { Cluster, PublicKey } from '@solana/web3.js'
-import HACKNYUIDL from '../target/idl/HACKNYU.json'
-import type { HACKNYU } from '../target/types/HACKNYU'
+import HACKNYUIDL from '../target/idl/hack_nyu.json'
+import type { HackNyu } from '../target/types/hack_nyu'
 
 // Re-export the generated IDL and type
-export { HACKNYU, HACKNYUIDL }
+export { HackNyu, HACKNYUIDL }
 
 // The programId is imported from the program IDL.
 export const HACKNYU_PROGRAM_ID = new PublicKey(HACKNYUIDL.address)
 
 // This is a helper function to get the HACKNYU Anchor program.
 export function getHACKNYUProgram(provider: AnchorProvider, address?: PublicKey) {
-  return new Program({ ...HACKNYUIDL, address: address ? address.toBase58() : HACKNYUIDL.address } as HACKNYU, provider)
+  return new Program({ ...HACKNYUIDL, address: address ? address.toBase58() : HACKNYUIDL.address } as HackNyu, provider)
 }
 
 // This is a helper function to get the program ID for the HACKNYU program depending on the cluster.
