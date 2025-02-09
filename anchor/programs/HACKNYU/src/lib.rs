@@ -43,11 +43,15 @@ pub mod hack_nyu {
 
         Ok(())
     }
-
-    pub fn verify_product(ctx: Context<VerifyProduct>, nfc_tag_hash: String) -> Result<bool> {
-        let product = &ctx.accounts.product;
-        Ok(product.nfc_tag_hash == nfc_tag_hash)
-    }
+    pub fn verify_product(ctx: Context<VerifyProduct>, nfc_tag_hash: String) -> Result<()> {
+      let product = &ctx.accounts.product;
+      if product.nfc_tag_hash == nfc_tag_hash {
+          msg!("Product verification successful");
+      } else {
+          msg!("Product verification failed");
+      }
+      Ok(())
+  }  
 }
 
 #[derive(Accounts)]
