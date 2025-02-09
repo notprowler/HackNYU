@@ -20,7 +20,7 @@ export default function Login() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center h-full">
       <div className=" p-6 rounded-lg shadow-lg w-80">
         <h1 className="text-2xl font-semibold text-center mb-4">Login</h1>
         <form className="space-y-3 flex flex-col w-full">

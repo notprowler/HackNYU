@@ -14,7 +14,12 @@ export default function DashboardFeature() {
 
   return (
     <div>
-      <AppHero title="Authenticity check" subtitle="Check if you're item is real or nah" />
+      <AppHero
+        title="VeriSure-Auth"
+        subtitle="Verify the authenticity of your recently purchased items with blockchain technology.
+
+"
+      />
       <div className="max-w-xl mx-auto py-6 sm:px-6 lg:px-8 text-center">
         <div className="space-y-2">
           <p>I am...</p>
@@ -22,15 +27,10 @@ export default function DashboardFeature() {
             <button onClick={() => navigate('/login')} className="btn btn-primary">
               Business
             </button>
-            <button className="btn btn-primary">Customer</button>
+            <button onClick={() => navigate('/customer')} className="btn btn-primary">
+              Customer
+            </button>
           </div>
-          {/* {links.map((link, index) => (
-            <div key={index}>
-              <a href={link.href} className="link" target="_blank" rel="noopener noreferrer">
-                {link.label}
-              </a>
-            </div>
-          ))} */}
         </div>
       </div>
     </div>
