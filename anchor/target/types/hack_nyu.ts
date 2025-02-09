@@ -14,90 +14,50 @@ export type HackNyu = {
   },
   "instructions": [
     {
-      "name": "close",
+      "name": "deleteProduct",
       "discriminator": [
-        98,
-        165,
-        201,
-        177,
-        108,
-        65,
-        206,
-        96
+        173,
+        212,
+        141,
+        230,
+        33,
+        82,
+        166,
+        25
       ],
       "accounts": [
         {
-          "name": "payer",
+          "name": "business",
           "writable": true,
           "signer": true
         },
         {
-          "name": "counter",
+          "name": "product",
           "writable": true
         }
       ],
       "args": []
     },
     {
-      "name": "decrement",
+      "name": "initializeProduct",
       "discriminator": [
-        106,
-        227,
-        168,
-        59,
-        248,
-        27,
-        150,
-        101
+        251,
+        245,
+        7,
+        123,
+        247,
+        50,
+        14,
+        2
       ],
       "accounts": [
         {
-          "name": "counter",
-          "writable": true
-        }
-      ],
-      "args": []
-    },
-    {
-      "name": "increment",
-      "discriminator": [
-        11,
-        18,
-        104,
-        9,
-        104,
-        174,
-        59,
-        33
-      ],
-      "accounts": [
-        {
-          "name": "counter",
-          "writable": true
-        }
-      ],
-      "args": []
-    },
-    {
-      "name": "initialize",
-      "discriminator": [
-        175,
-        175,
-        109,
-        31,
-        13,
-        152,
-        155,
-        237
-      ],
-      "accounts": [
-        {
-          "name": "payer",
+          "name": "business",
           "writable": true,
           "signer": true
         },
         {
-          "name": "counter",
+          "name": "product",
           "writable": true,
           "signer": true
         },
@@ -106,58 +66,112 @@ export type HackNyu = {
           "address": "11111111111111111111111111111111"
         }
       ],
-      "args": []
+      "args": [
+        {
+          "name": "productId",
+          "type": "string"
+        },
+        {
+          "name": "nfcTagHash",
+          "type": "string"
+        }
+      ]
     },
     {
-      "name": "set",
+      "name": "updateProduct",
       "discriminator": [
-        198,
-        51,
-        53,
+        139,
+        180,
         241,
-        116,
-        29,
         126,
-        194
+        123,
+        240,
+        13,
+        224
       ],
       "accounts": [
         {
-          "name": "counter",
+          "name": "business",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "product",
           "writable": true
         }
       ],
       "args": [
         {
-          "name": "value",
-          "type": "u8"
+          "name": "newNfcTagHash",
+          "type": "string"
         }
       ]
+    },
+    {
+      "name": "verifyProduct",
+      "discriminator": [
+        194,
+        237,
+        110,
+        6,
+        178,
+        137,
+        184,
+        224
+      ],
+      "accounts": [
+        {
+          "name": "product"
+        }
+      ],
+      "args": [
+        {
+          "name": "nfcTagHash",
+          "type": "string"
+        }
+      ],
+      "returns": "bool"
     }
   ],
   "accounts": [
     {
-      "name": "counter",
+      "name": "product",
       "discriminator": [
-        255,
-        176,
-        4,
-        245,
-        188,
-        253,
-        124,
-        25
+        102,
+        76,
+        55,
+        251,
+        38,
+        73,
+        224,
+        229
       ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "unauthorized",
+      "msg": "Unauthorized: You are not the owner of this product."
     }
   ],
   "types": [
     {
-      "name": "counter",
+      "name": "product",
       "type": {
         "kind": "struct",
         "fields": [
           {
-            "name": "count",
-            "type": "u8"
+            "name": "productId",
+            "type": "string"
+          },
+          {
+            "name": "nfcTagHash",
+            "type": "string"
+          },
+          {
+            "name": "business",
+            "type": "pubkey"
           }
         ]
       }

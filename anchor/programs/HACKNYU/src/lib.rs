@@ -8,65 +8,104 @@ declare_id!("coUnmi3oBUtwtd9fjeAvSsJssXh5A5xyPbhpewyzRVF");
 pub mod hack_nyu {
     use super::*;
 
-    pub fn close(_ctx: Context<CloseCounter>) -> Result<()> {
+    pub fn initialize_product(
+        ctx: Context<InitializeProduct>,
+        product_id: String,
+        nfc_tag_hash: String,
+    ) -> Result<()> {
+        let product = &mut ctx.accounts.product;
+        product.product_id = product_id;
+        product.nfc_tag_hash = nfc_tag_hash;
+        product.business = *ctx.accounts.business.key;
+
         Ok(())
     }
 
-    pub fn decrement(ctx: Context<Update>) -> Result<()> {
-        ctx.accounts.counter.count = ctx.accounts.counter.count.checked_sub(1).unwrap();
+    pub fn update_product(
+        ctx: Context<UpdateProduct>,
+        new_nfc_tag_hash: String,
+    ) -> Result<()> {
+        require!(
+            ctx.accounts.business.key() == ctx.accounts.product.business,
+            ErrorCode::Unauthorized
+        );
+
+        let product = &mut ctx.accounts.product;
+        product.nfc_tag_hash = new_nfc_tag_hash;
         Ok(())
     }
 
-    pub fn increment(ctx: Context<Update>) -> Result<()> {
-        ctx.accounts.counter.count = ctx.accounts.counter.count.checked_add(1).unwrap();
+    pub fn delete_product(ctx: Context<DeleteProduct>) -> Result<()> {
+        require!(
+            ctx.accounts.business.key() == ctx.accounts.product.business,
+            ErrorCode::Unauthorized
+        );
+
         Ok(())
     }
 
-    pub fn initialize(ctx: Context<InitializeCounter>) -> Result<()> {
-        ctx.accounts.counter.count = 0; // Initialize count to 0
-        Ok(())
-    }
-
-    pub fn set(ctx: Context<Update>, value: u8) -> Result<()> {
-        ctx.accounts.counter.count = value;
-        Ok(())
+    pub fn verify_product(ctx: Context<VerifyProduct>, nfc_tag_hash: String) -> Result<bool> {
+        let product = &ctx.accounts.product;
+        Ok(product.nfc_tag_hash == nfc_tag_hash)
     }
 }
 
 #[derive(Accounts)]
-pub struct InitializeCounter<'info> {
+pub struct InitializeProduct<'info> {
     #[account(mut)]
-    pub payer: Signer<'info>,
+    pub business: Signer<'info>,
 
     #[account(
         init,
-        space = 8 + Counter::INIT_SPACE,
-        payer = payer
+        space = 8 + Product::INIT_SPACE,
+        payer = business
     )]
-    pub counter: Account<'info, Counter>,
+    pub product: Account<'info, Product>,
+    
     pub system_program: Program<'info, System>,
 }
 
 #[derive(Accounts)]
-pub struct CloseCounter<'info> {
+pub struct UpdateProduct<'info> {
     #[account(mut)]
-    pub payer: Signer<'info>,
+    pub business: Signer<'info>,
 
-    #[account(
-        mut,
-        close = payer,
-    )]
-    pub counter: Account<'info, Counter>,
+    #[account(mut)]
+    pub product: Account<'info, Product>,
 }
 
 #[derive(Accounts)]
-pub struct Update<'info> {
+pub struct DeleteProduct<'info> {
     #[account(mut)]
-    pub counter: Account<'info, Counter>,
+    pub business: Signer<'info>,
+
+    #[account(
+        mut,
+        close = business
+    )]
+    pub product: Account<'info, Product>,
+}
+
+#[derive(Accounts)]
+pub struct VerifyProduct<'info> {
+    pub product: Account<'info, Product>,
 }
 
 #[account]
 #[derive(InitSpace)]
-pub struct Counter {
-    count: u8,
+pub struct Product {
+    #[max_len(64)] // Fix for "Expected max_len attribute"
+    pub product_id: String,  
+
+    #[max_len(128)] // Fix for "Expected max_len attribute"
+    pub nfc_tag_hash: String,
+
+    pub business: Pubkey,
 }
+
+#[error_code]
+pub enum ErrorCode {
+    #[msg("Unauthorized: You are not the owner of this product.")]
+    Unauthorized,
+}
+
