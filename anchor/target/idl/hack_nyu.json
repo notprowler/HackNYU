@@ -1,5 +1,5 @@
 {
-  "address": "coUnmi3oBUtwtd9fjeAvSsJssXh5A5xyPbhpewyzRVF",
+  "address": "HZEgrwNj3hTMTgmBnszN9rD3VeH6RBvVJ4eyqtAzS32j",
   "metadata": {
     "name": "hack_nyu",
     "version": "0.1.0",
@@ -9,6 +9,16 @@
   "instructions": [
     {
       "name": "delete_product",
+      "discriminator": [
+        173,
+        212,
+        141,
+        230,
+        33,
+        82,
+        166,
+        25
+      ],
       "accounts": [
         {
           "name": "business",
@@ -17,14 +27,23 @@
         },
         {
           "name": "product",
-          "writable": true,
-          "signer": false
+          "writable": true
         }
       ],
       "args": []
     },
     {
       "name": "initialize_product",
+      "discriminator": [
+        251,
+        245,
+        7,
+        123,
+        247,
+        50,
+        14,
+        2
+      ],
       "accounts": [
         {
           "name": "business",
@@ -54,6 +73,16 @@
     },
     {
       "name": "update_product",
+      "discriminator": [
+        139,
+        180,
+        241,
+        126,
+        123,
+        240,
+        13,
+        224
+      ],
       "accounts": [
         {
           "name": "business",
@@ -62,8 +91,7 @@
         },
         {
           "name": "product",
-          "writable": true,
-          "signer": false
+          "writable": true
         }
       ],
       "args": [
@@ -75,7 +103,16 @@
     },
     {
       "name": "verify_product",
-      "discriminator": [194, 237, 110, 6, 178, 137, 184, 224],
+      "discriminator": [
+        194,
+        237,
+        110,
+        6,
+        178,
+        137,
+        184,
+        224
+      ],
       "accounts": [
         {
           "name": "product"
@@ -86,15 +123,22 @@
           "name": "nfc_tag_hash",
           "type": "string"
         }
-      ],
-      "returns": "bool"
+      ]
     }
   ],
-
   "accounts": [
     {
       "name": "Product",
-      "discriminator": [102, 76, 55, 251, 38, 73, 224, 229]
+      "discriminator": [
+        102,
+        76,
+        55,
+        251,
+        38,
+        73,
+        224,
+        229
+      ]
     }
   ],
   "errors": [

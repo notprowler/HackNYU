@@ -1,16 +1,14 @@
 // src/solanaUtils.ts
 import { PublicKey } from '@solana/web3.js'
-
-// Import your IDL
-import {HACKNYUIDL} from "../../../anchor/src/HACKNYU-exports"
+import { web3 } from '@coral-xyz/anchor'
+import { HACKNYUIDL, getHACKNYUProgram, HackNyu } from "../../../anchor/src/HACKNYU-exports"
 import { useAnchorProvider } from '../solana/solana-provider'
-import { Program, web3 } from '@coral-xyz/anchor'
 
 const programId = new PublicKey("coUnmi3oBUtwtd9fjeAvSsJssXh5A5xyPbhpewyzRVF")
 
 export const useSolanaProgram = () => {
   const anchorProvider = useAnchorProvider()
-  const program = new Program(HACKNYUIDL, programId, anchorProvider)
+  const program = getHACKNYUProgram(anchorProvider, programId)
 
   // Initialize Product
   const initializeProduct = async (productId: string, nfcTagHash: string) => {

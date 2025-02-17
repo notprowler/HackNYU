@@ -1,7 +1,8 @@
 // src/components/VerifyProductForm.tsx
 import React, { useState } from 'react'
-import { useSolanaProgram } from '../solanaUtils'
+
 import { PublicKey } from '@solana/web3.js'
+import { useSolanaProgram } from '../solanautils/solanautils'
 
 const VerifyProductForm = () => {
   const [productPublicKey, setProductPublicKey] = useState('')

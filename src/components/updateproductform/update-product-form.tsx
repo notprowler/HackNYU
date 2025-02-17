@@ -1,7 +1,8 @@
 // src/components/UpdateProductForm.tsx
 import React, { useState } from 'react'
-import { useSolanaProgram } from '../solanaUtils'
+
 import { PublicKey } from '@solana/web3.js'
+import { useSolanaProgram } from '../solanautils/solanautils'
 
 const UpdateProductForm = () => {
   const [productPublicKey, setProductPublicKey] = useState('')

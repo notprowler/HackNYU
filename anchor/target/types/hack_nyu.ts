@@ -129,8 +129,7 @@ export type HackNyu = {
           "name": "nfcTagHash",
           "type": "string"
         }
-      ],
-      "returns": "bool"
+      ]
     }
   ],
   "accounts": [
